@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.post("/", validateLog, logController.createLog);
 router.get("/", logController.getLogs);
+router.get("/sample", logController.getSampleLogs);
 
 module.exports = router;

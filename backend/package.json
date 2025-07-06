@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon --ignore logs.json --ignore '*.json' src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "express": "^5.1.0",
     "joi": "^17.13.3",
     "node-json-db": "^2.3.1",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "socket.io": "^4.8.1"
   }
 }
