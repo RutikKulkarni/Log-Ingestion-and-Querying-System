@@ -28,6 +28,34 @@ export const fetchLogs = async (filters = {}) => {
   }
 };
 
+export const fetchSampleLogs = async (filters = {}) => {
+  try {
+    const queryParams = new URLSearchParams();
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value && value.trim() !== "") {
+        queryParams.append(key, value);
+      }
+    });
+
+    const url = `${API_BASE_URL}/logs/sample${
+      queryParams.toString() ? `?${queryParams.toString()}` : ""
+    }`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching sample logs:", error);
+    throw error;
+  }
+};
+
 export const ingestLog = async (logData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/logs`, {
@@ -52,3 +80,5 @@ export const ingestLog = async (logData) => {
     throw error;
   }
 };
+
+export default API_BASE_URL;
