@@ -28,36 +28,107 @@ A full-stack application for ingesting, storing, and querying log data. Built wi
 
 ## Installation and Setup
 
-### Quick Start
+### Recommended: Docker Setup
+
+**Prerequisites:**
+- Docker
+- Docker Compose
+
+**Quick Start with Docker:**
 
 1. **Clone the repository**
-   ```
+   ```bash
    git clone https://github.com/RutikKulkarni/Log-Ingestion-and-Querying-System.git
    cd Log-Ingestion-and-Querying-System
    ```
 
-2. **Install backend dependencies**
+2. **Create environment files**
+   
+   Create `frontend/.env`:
    ```
+   REACT_APP_API_URL=http://localhost:3001/api
+   REACT_APP_WS_URL=http://localhost:3001
+   ```
+   
+   Create `backend/.env`:
+   ```
+   PORT=3001
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:3000
+   ```
+
+3. **Run with Docker Compose**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:3001
+
+**Docker Commands:**
+```bash
+# Start the application
+docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d --build
+
+# Stop the application
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild and restart
+docker-compose down && docker-compose up --build
+```
+
+### Manual Setup
+
+**Prerequisites:**
+- Node.js
+- npm
+
+**Steps:**
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/RutikKulkarni/Log-Ingestion-and-Querying-System.git
+   cd Log-Ingestion-and-Querying-System
+   ```
+
+2. **Setup Backend**
+   ```bash
    cd backend
    npm install
    ```
 
-3. *Start backend**
-   ```
-   npm run dev
-   ```
-
-4. **Install frontend dependencies**
-   ```
-   cd frontend
+3. **Setup Frontend**
+   ```bash
+   cd ../frontend
    npm install
    ```
 
-5. *Start frontend**
+4. **Start Backend** (in backend directory)
+   ```bash
+   npm run dev
    ```
+
+5. **Start Frontend** (in frontend directory, new terminal)
+   ```bash
    npm start
    ```
 
-This will start:
-- Backend server on http://localhost:3001
-- Frontend application on http://localhost:3000
+**Manual Setup URLs:**
+- Backend server: http://localhost:3001
+- Frontend application: http://localhost:3000
+
+
+## Technology Stack
+
+- **Backend**: Node.js, Express.js, node-json-db, Joi, Socket.IO
+- **Frontend**: React, Tailwind CSS, React Icons, Socket.IO Client
+- **Development**: Docker, Docker Compose, Nodemon
+- **Storage**: JSON file-based persistence
+
