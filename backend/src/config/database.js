@@ -1,4 +1,5 @@
 const { JsonDB, Config } = require("node-json-db");
+const sampleLogs = require("../utils/sampleData");
 
 class DatabaseManager {
   constructor() {
@@ -7,9 +8,16 @@ class DatabaseManager {
 
   async initialize() {
     try {
-      await this.db.getData("/logs");
+      const logs = await this.db.getData("/logs");
+      if (logs.length === 0) {
+        console.log("Loading sample log data...");
+        await this.db.push("/logs", sampleLogs);
+        console.log(`Loaded ${sampleLogs.length} sample logs`);
+      }
     } catch (error) {
-      await this.db.push("/logs", []);
+      console.log("Initializing database with sample log data...");
+      await this.db.push("/logs", sampleLogs);
+      console.log(`Loaded ${sampleLogs.length} sample logs`);
     }
   }
 
@@ -19,6 +27,11 @@ class DatabaseManager {
 
   async push(path, data) {
     return await this.db.push(path, data);
+  }
+
+  async resetToSampleData() {
+    await this.db.push("/logs", sampleLogs);
+    console.log(`Reset database with ${sampleLogs.length} sample logs`);
   }
 }
 
